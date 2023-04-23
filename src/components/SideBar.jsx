@@ -3,9 +3,7 @@ const SideBar = () => {
 
     const isMenu = useSelector(store => store.app.isSideBar)
 
-    console.log(isMenu)
-
-    return (
+    return !isMenu ? null : (
     <div>
         <ul>
             <li>Home</li>

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const appSlice = createSlice({
-    iname:'app',
+    name:'app',
     initialState:{
         isSideBar : true,
     },
