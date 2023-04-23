@@ -5,7 +5,7 @@ const Nav = () => {
 
     const dispatch = useDispatch();
 
-    const handleToogle = () => {
+    const handleToggle = () => {
         dispatch(toogle())
     }
 
