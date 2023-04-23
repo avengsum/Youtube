@@ -6,6 +6,9 @@ const Home = () => {
         "All","Gaming","Music","Sports","Movies",
     ]
 
+    const APIKEY = import.meta.env.APIKEY
+    console.log(APIKEY)
+
     return (
         <div>
         <div className="flex space-x-6 items-center">
