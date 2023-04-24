@@ -1,9 +1,35 @@
 import { useDispatch } from "react-redux";
 import { toogle } from "../utilis/appSlice";
+import { useState } from "react";
+import { useEffect } from "react";
+import { suggestionApi } from "../assets/constants";
 
 const Nav = () => {
 
     const dispatch = useDispatch();
+
+    const [search,setSearch] = useState("")
+    const [suggestion , setSuggestion] = useState([]);
+    const [toggleSearch , setToggleSearch] = useState(false)
+
+    useEffect(() => {
+
+      setTimeout(() => {
+        getSuggestion();
+      },200)
+
+      return () => {
+        clearTimeout();
+      }
+
+    },[search])
+
+    const getSuggestion = async () => {
+      const data = await fetch(suggestionApi + search);
+      const json = await data.json();
+
+      setSuggestion(json[1]);
+    }
 
     const handleToggle = () => {
         dispatch(toogle())
@@ -24,16 +50,33 @@ const Nav = () => {
               />
             </div>
           
-            <div className="w-full sm:w-1/2 mt-2 sm:mt-0">
+            <div className="w-full sm:w-1/2 mt-2 relative sm:mt-0">
               <input
                 className="border-2 border-gray-600 w-full sm:w-2/4 px-2 py-1"
                 name="search"
                 placeholder="Search"
+                type="text"
+                value={search}
+                onFocus={() => setToggleSearch(true)}
+                onBlur={() => setToggleSearch(false)}
+                onChange={(e) => setSearch(e.target.value) }
               />
               <button className="px-4 py-1 mt-2 sm:mt-0 sm:ml-2 bg-blue-500 text-white">
                 Search
               </button>
             </div>
+            {toggleSearch && <div className="bg-white w-96 top-14 fixed left-[24rem] rounded-md">
+               <ul className="text-lg space-y-2 space-x-2 🔍" >
+                {suggestion?.map((s) => {
+                  return (
+                     <li>🔍 {s} </li>
+                  )
+                })}
+               
+                
+               </ul>
+            </div>}
+
           
             <div className="mr-4 sm:mr-8 mt-2 sm:mt-0">
               <button className="px-4 py-1 bg-blue-500 text-white">

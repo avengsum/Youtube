@@ -4,7 +4,7 @@ const SideBar = () => {
     const isMenu = useSelector(store => store.app.isSideBar)
 
     return !isMenu ? null : (
-        <div className="flex flex-col h-full text-gray-900">
+        <div className="flex flex-col h-full fixed text-gray-900">
         <ul className="p-4">
           <li className="py-2 hover:text-gray-200">Home</li>
           <li className="py-2 hover:text-gray-200">Shorts</li>
@@ -12,7 +12,7 @@ const SideBar = () => {
           <li className="py-2 hover:text-gray-200">Library</li>
           <li className="py-2 hover:text-gray-200">History</li>
         </ul>
-        <ul className="p-4 mt-auto">
+        <ul className="p-4 ">
           <li className="py-2 hover:text-gray-200">Explore</li>
           <li className="py-2 hover:text-gray-200">Trending</li>
           <li className="py-2 hover:text-gray-200">Shopping</li>
