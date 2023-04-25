@@ -32,8 +32,6 @@ const Nav = () => {
 
     },[search])
 
-    console.log(suggestion)
-
     const getSuggestion = async () => {
       const data = await fetch(suggestionApi + search);
       const json = await data.json();
