@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import Button from "./Button"
 import { Api } from "../assets/constants"
 import Video from "./Video"
+import { Link } from "react-router-dom"
 
 const Home = () => {
     const button = [
@@ -10,7 +11,8 @@ const Home = () => {
     ]
 
     const [videoData , setVideoData] = useState([])
-    const [toggleSearch , setToggleSearch] = useState(false)
+    console.log(videoData)
+    
 
     useEffect(() => {
       getData();
@@ -36,11 +38,14 @@ const Home = () => {
               />
             );
           })}
-        </div><div className="flex flex-wrap -mx-4 mt-4">
-  {videoData.map((video, index) => (
-    <div key={index} className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-4">
-      <Video info={video} />
-    </div>
+        </div>
+      <div className="flex flex-wrap -mx-4 mt-4">
+      {videoData.map((video, index) => (
+      <Link to={'/watch?v=' + video.id}><div key={index} className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-4">
+             <Video info={video} />
+        </div>
+        </Link>
+        
   ))}
 </div>
 </div>
