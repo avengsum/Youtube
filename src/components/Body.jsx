@@ -1,5 +1,5 @@
 import SideBar from "./SideBar"
-import Home from './Home'
+import { Outlet } from "react-router-dom"
 
 const Body = () => {
     return (
@@ -8,7 +8,7 @@ const Body = () => {
                <SideBar />
             </div>
             <div className="w-4/5" >
-                <Home />
+                <Outlet />
             </div>
         </div>
     )

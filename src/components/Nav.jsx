@@ -1,8 +1,10 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toogle } from "../utilis/appSlice";
 import { useState } from "react";
 import { useEffect } from "react";
+import { cacheResult } from "../utilis/searchSlice";
 import { suggestionApi } from "../assets/constants";
+
 
 const Nav = () => {
 
@@ -12,23 +14,32 @@ const Nav = () => {
     const [suggestion , setSuggestion] = useState([]);
     const [toggleSearch , setToggleSearch] = useState(false)
 
+    const searchResult = useSelector((store) => store.search.searchCache)
+
     useEffect(() => {
 
-      setTimeout(() => {
+      const Timer = setTimeout(() => {
+        if(searchResult[search])
+        setSuggestion(searchResult[search]);
+        else{
         getSuggestion();
+        }
       },200)
 
       return () => {
-        clearTimeout();
+        clearTimeout(Timer);
       }
 
     },[search])
+
+    console.log(suggestion)
 
     const getSuggestion = async () => {
       const data = await fetch(suggestionApi + search);
       const json = await data.json();
 
       setSuggestion(json[1]);
+      dispatch(cacheResult({[search] : json[1]}))
     }
 
     const handleToggle = () => {
@@ -67,9 +78,9 @@ const Nav = () => {
             </div>
             {toggleSearch && <div className="bg-white w-96 top-14 fixed left-[24rem] rounded-md">
                <ul className="text-lg space-y-2 space-x-2 🔍" >
-                {suggestion?.map((s) => {
+                {suggestion.map((s,index) => {
                   return (
-                     <li>🔍 {s} </li>
+                     <li key={index} >🔍 {s} </li>
                   )
                 })}
                
