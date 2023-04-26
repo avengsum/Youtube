@@ -6,11 +6,9 @@ import LiveChat from "./LiveChat"
 const VideoPage = () => {
     const [search] = useSearchParams()
     const [comment,setComment] = useState([])
-    const [liveComment , setLiveComment] = useState([])
 
     useEffect(() => {
         getComments()
-        getLiveComments()
     },[])
     
     const getComments = async () => {
@@ -18,17 +16,6 @@ const VideoPage = () => {
         const json = await data.json();
         setComment(json.items)
     }
-
-    const getLiveComments = async () => {
-        const data = await fetch("https://www.googleapis.com/youtube/v3/liveChat/messages?liveChatId=Cg0KCzZwX0pNLUk3RlVnKicKGFVDdmpnWHZCbGJRaXlkZmZaVTdtMV9hdxILNnBfSk0tSTdGVWc&part=snippet,authorDetails&maxResults=2000&pageToken=GL-g5f3twuoCIJ3dpYHuwuoC&key=AIzaSyB0AHrkRB54Lv3ISPzwOYCXxVWYkjs48-8");
-        const json = await data.json();
-        setLiveComment(json)
-    }
-    console.log(liveComment)
-
-
-
-    
 
     return (
         <div className="flex flex-col w-full">
