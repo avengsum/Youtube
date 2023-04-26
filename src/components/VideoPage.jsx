@@ -1,13 +1,16 @@
 import { useSearchParams } from "react-router-dom"
 import Comments from "./Comments"
 import { useEffect, useState } from "react"
+import LiveChat from "./LiveChat"
 
 const VideoPage = () => {
     const [search] = useSearchParams()
     const [comment,setComment] = useState([])
+    const [liveComment , setLiveComment] = useState([])
 
     useEffect(() => {
         getComments()
+        getLiveComments()
     },[])
     
     const getComments = async () => {
@@ -16,20 +19,32 @@ const VideoPage = () => {
         setComment(json.items)
     }
 
+    const getLiveComments = async () => {
+        const data = await fetch("https://www.googleapis.com/youtube/v3/liveChat/messages?liveChatId=Cg0KCzZwX0pNLUk3RlVnKicKGFVDdmpnWHZCbGJRaXlkZmZaVTdtMV9hdxILNnBfSk0tSTdGVWc&part=snippet,authorDetails&maxResults=2000&pageToken=GL-g5f3twuoCIJ3dpYHuwuoC&key=AIzaSyB0AHrkRB54Lv3ISPzwOYCXxVWYkjs48-8");
+        const json = await data.json();
+        setLiveComment(json)
+    }
+    console.log(liveComment)
+
+
 
     
 
     return (
-        <div className="flex flex-col">
-            <div className="px-5">
+        <div className="flex flex-col w-full">
+            <div className="px-5 flex w-full">
                 <div>
                 <iframe width="800" height="500"
                  src={"https://www.youtube.com/embed/" + search.get('v')}
-                 title="YouTube video player" frameborder="0"
+                 title="YouTube video player" frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                 allowFullScreen>
 
                 </iframe>
+                </div>
+
+                <div className="w-full">
+                    <LiveChat />
                 </div>
 
             </div>
