@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom"
 import Comments from "./Comments"
 import { useEffect, useState } from "react"
+import LiveChat from "./LiveChat"
 
 const VideoPage = () => {
     const [search] = useSearchParams()
@@ -16,20 +17,21 @@ const VideoPage = () => {
         setComment(json.items)
     }
 
-
-    
-
     return (
-        <div className="flex flex-col">
-            <div className="px-5">
+        <div className="flex flex-col w-full">
+            <div className="px-5 flex w-full">
                 <div>
                 <iframe width="800" height="500"
                  src={"https://www.youtube.com/embed/" + search.get('v')}
-                 title="YouTube video player" frameborder="0"
+                 title="YouTube video player" frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                 allowFullScreen>
 
                 </iframe>
+                </div>
+
+                <div className="w-full">
+                    <LiveChat />
                 </div>
 
             </div>
