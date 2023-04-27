@@ -3,6 +3,8 @@ import Button from "./Button"
 import { Api } from "../assets/constants"
 import Video from "./Video"
 import { Link } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { addVideo } from "../utilis/videoSlice"
 
 const Home = () => {
     const button = [
@@ -10,8 +12,18 @@ const Home = () => {
         "All","Gaming","Music","Sports","Movies",
     ]
 
+    const dispatch = useDispatch()
+
     const [videoData , setVideoData] = useState([])
-    console.log(videoData)
+
+    const getData = async () => {
+      const data = await fetch(Api)
+      const json = await data.json();
+
+      setVideoData(json.items)
+      dispatch(addVideo(json.items))
+      
+    };
     
 
     useEffect(() => {
@@ -19,13 +31,7 @@ const Home = () => {
     },[]);
 
 
-    const getData = async () => {
-      const data = await fetch(Api)
-      const json = await data.json();
-
-      setVideoData(json.items)
-      
-    };
+   
     return (
         <div className="mt-6">
         <div className="flex space-x-6 items-center">
@@ -39,9 +45,9 @@ const Home = () => {
             );
           })}
         </div>
-      <div className="flex flex-wrap -mx-4 mt-4">
+      <div className="flex flex-wrap mt-4 space-y-4">
       {videoData.map((video, index) => (
-      <Link to={'/watch?v=' + video.id}><div key={index} className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-4">
+      <Link to={'/watch?v=' + video.id}><div key={index} className=" w-[400px]">
              <Video info={video} />
         </div>
         </Link>
