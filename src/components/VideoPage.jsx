@@ -4,17 +4,29 @@ import { useEffect, useState } from "react"
 import LiveChat from "./LiveChat"
 import { useSelector } from "react-redux"
 import Video from "./Video"
+import { Link } from "react-router-dom"
+import { useRef } from "react"
 
 const VideoPage = () => {
     const [search] = useSearchParams()
     const [comment,setComment] = useState([])
+    const [local,setLocal] = useState([]);
+        const topRef = useRef(null);
+      
+        const handleLinkClick = (e) => {
+            e.preventDefault();
+            topRef.current.scrollIntoView({ behavior: "smooth" });
+          };
 
     const videoData = useSelector((store) => store.video.videoData[0])
+    
     console.log(videoData)
 
     useEffect(() => {
         getComments()
-    },[])
+        setLocal(videoData)
+        window.scrollTo(0, 0);
+    },[search])
 
     
     const getComments = async () => {
@@ -49,11 +61,11 @@ const VideoPage = () => {
                 })}
                 
             </div>
-            <div className="w-[20%]">
-                {videoData.map((video, index) => (
-               <div key={index} className="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 px-4 mb-4">
+            <div className="w-[20%] mt-4">
+                {local.map((video, index) => (
+              <Link to={'/watch?v=' + video.id}> <div key={index} className="mb-8" >
                 <Video info={video} />
-                 </div> ))}
+                 </div> </Link> ))}
             </div>
             </div>
             
