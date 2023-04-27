@@ -5,6 +5,7 @@ import Video from "./Video"
 import { Link } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { addVideo } from "../utilis/videoSlice"
+import useOnline from "../utilis/useOnline"
 
 const Home = () => {
     const button = [
@@ -30,9 +31,14 @@ const Home = () => {
       getData();
     },[]);
 
+    const isOnline = useOnline();
+
+    if(!isOnline){
+      return <h1 className="text-3xl">check your internet</h1>
+    }
 
    
-    return (
+    return  (
         <div className="mt-6">
         <div className="flex space-x-6 items-center">
           {button.map((btn, index) => {
