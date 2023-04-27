@@ -6,17 +6,18 @@ const Video = ({info}) => {
     const {likeCount , viewCount ,commentCount} = statistics;
 
     return (
-    <div className="bg-white p-4 rounded-md shadow-md ">
+    <div className="">
     <img
     src={thumbnails.default.url}
     alt=""
-    className="w-56 md:w-44 h-30 object-cover rounded-md mr-0 md:mr-4 mb-4 md:mb-0"
+    className="w-[80%] object-fill"
   />
-  <div className="flex flex-col flex-1">
-    <h3 className="font-semibold text-gray-900 ">{title}</h3>
-    <p className="text-gray-600 text-sm ">{channelTitle}</p>
-    <div className="flex items-center mt-2">
-      <span className="text-gray-500 text-sm mr-1">{viewCount}</span>
+  <div className="mt-2">
+    <h3 className=" font-bold">{title}</h3>
+    <p className=" ">{channelTitle}</p>
+    <div className="">
+      <span className="">{viewCount > 1000000 ?(viewCount/1000000).toFixed(1) : (viewCount/1000).toFixed() }
+       {viewCount > 1000000 ? "m" : "k" }</span>
       
     </div>
   </div>
