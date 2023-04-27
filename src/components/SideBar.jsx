@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 const SideBar = () => {
 
     const isMenu = useSelector(store => store.app.isSideBar)
@@ -6,7 +7,7 @@ const SideBar = () => {
     return !isMenu ? null : (
         <div className="flex flex-col h-full fixed text-gray-900">
         <ul className="p-4">
-          <li className="py-2 hover:text-gray-200">Home</li>
+          <Link to='/'><li className="py-2 hover:text-gray-200">Home</li></Link>
           <li className="py-2 hover:text-gray-200">Shorts</li>
           <li className="py-2 hover:text-gray-200">Subscriptions</li>
           <li className="py-2 hover:text-gray-200">Library</li>
