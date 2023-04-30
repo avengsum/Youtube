@@ -20,8 +20,6 @@ const VideoPage = () => {
 
     const videoData = useSelector((store) => store.video.videoData[0])
     
-    console.log(videoData)
-
     useEffect(() => {
         getComments()
         setLocal(videoData)
@@ -30,7 +28,7 @@ const VideoPage = () => {
 
     
     const getComments = async () => {
-        const data = await fetch(`https://www.googleapis.com/youtube/v3/commentThreads?key=AIzaSyB0AHrkRB54Lv3ISPzwOYCXxVWYkjs48-8&textFormat=plainText&part=snippet&videoId=${search.get('v')}&maxResults=100`);
+        const data = await fetch(`https://www.googleapis.com/youtube/v3/commentThreads?key=${import.meta.env.VITE_API_KEY}&textFormat=plainText&part=snippet&videoId=${search.get('v')}&maxResults=100`);
         const json = await data.json();
         setComment(json.items)
     }
@@ -63,7 +61,7 @@ const VideoPage = () => {
             </div>
             <div className="w-[20%] mt-4">
                 {local.map((video, index) => (
-              <Link to={'/watch?v=' + video.id}> <div key={index} className="mb-8" >
+              <Link key={index} to={'/watch?v=' + video.id}> <div key={index} className="mb-8" >
                 <Video info={video} />
                  </div> </Link> ))}
             </div>

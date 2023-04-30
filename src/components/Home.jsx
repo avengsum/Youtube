@@ -13,6 +13,8 @@ const Home = () => {
         "All","Gaming","Music","Sports","Movies",
     ]
 
+  
+
     const dispatch = useDispatch()
 
     const [videoData , setVideoData] = useState([])
@@ -52,8 +54,8 @@ const Home = () => {
           })}
         </div>
       <div className="flex flex-wrap mt-4 space-y-4">
-      {videoData.map((video, index) => (
-      <Link to={'/watch?v=' + video.id}><div key={index} className=" w-[400px]">
+      {videoData?.map((video, index) => (
+      <Link key={index} to={'/watch?v=' + video.id}><div key={index} className=" w-[400px]">
              <Video info={video} />
         </div>
         </Link>
