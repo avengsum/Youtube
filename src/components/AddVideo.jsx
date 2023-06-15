@@ -1,10 +1,12 @@
 import { Field, useFormik} from "formik"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import * as Yup from 'yup'
+import { add } from "../utilis/addVideoSlice"
 
 const AddVideo = () => {
 
     const selector = useSelector((state) => state.add.video)
+    const dispatch = useDispatch()
 
     const formik = useFormik({
         initialValues:{
@@ -18,52 +20,61 @@ const AddVideo = () => {
         }),
         onSubmit:values => {
             JSON.stringify(values,null,2)
+            dispatch(add(values))
         }
     })
+    console.log(selector)
 
     console.log(formik.values)
 
     return(
+        <div className="flex items-center h-screen w-full bg-teal-400">
+        <div className="w-full bg-white rounded shadow-lg m-4 p-8 md:max-w-sm md:mx-auto ">
         <div>
-            <div>
-                <img className="w-16 "
-                 src="https://static.vecteezy.com/system/resources/thumbnails/009/734/564/small/default-avatar-profile-icon-of-social-media-user-vector.jpg" />
-                <p className="font-semibold text-2xl"
-                >name</p>
-                <p className="font-medium  text-gray-600">email</p>
+                <p className="font-semibold text-center text-4xl">Add Video</p>
             </div>
-            <nav>
-                <ul>
-                    <li>Upload</li>
-                    <li>Video</li>
-                </ul>
-            </nav>
-            <div>
-                <p className="font-semibold text-4xl">Video Details</p>
-            </div>
-            <form onSubmit={formik.handleSubmit}>
-                <label>Title</label>
-                <input id="title"
+         <form onSubmit={formik.handleSubmit}
+         className="mb-4 md:fkex md:flex-wrap md:justify-between"
+         >
+            <div className="flex flex-col mb-4 md:w-full">
+                <label
+                className="mb-2 uppercase font-bold text-lg"
+                >Title</label>
+                <input
+                className="border-2 py-2 px-3 text-gray-700"
+                 id="title"
                 onChange={formik.handleChange}
                  name="title" type="text" />
-                <label>Description</label>
-                <input type="text"
+            </div>
+            <div className="flex flex-col mb-4" >
+            <label
+            className="mb-2 uppercase font-bold text-lg"
+            >Description</label>
+                <input className=" border-2 py-2 px-3 text-gray-700" type="text"
                 id="description"
                 name="description"
                 onChange={formik.handleChange}
-                 />
-                <h1>Visibility</h1>
+                 /> 
+            </div>
+            <div className="flex flex-col mb-4">
+            <h1 className="mb-2 uppercase font-bold text-lg">Visibility</h1>
                <label htmlFor="private">
-               <input checked={formik.values.visibility === 'Private'} onChange={formik.handleChange} type="radio" name="visibility" value="Private" />
+               <input 
+               checked={formik.values.visibility === 'Private'} onChange={formik.handleChange} type="radio" name="visibility" value="Private" />
                 Private
                </label>
                 <label htmlFor="public">
                 <input checked={formik.values.visibility === 'Public'} onChange={formik.handleChange} type="radio" name="visibility"  value="Public" />
                     Public
                 </label>
+            </div>
+
                 
-                <button type="submit">Submit</button>
+                <button
+                className="block  bg-red-600 hover:bg-red-800 text-white uppercase text-lg mx-auto p-4 rounded"
+                 type="submit">Submit</button>
             </form>
+            </div>
         </div>
     )
 }
