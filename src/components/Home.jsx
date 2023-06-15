@@ -42,13 +42,15 @@ const Home = () => {
    
     return  (
         <div className="mt-6">
-        <div className="flex space-x-6 items-center">
+        <div className="top-[3.5rem] z-20 flex items-center flex-1 overflow-x-hidden overflow-y-hidden overflow-scroll
+        border-t-[1px] border-b-[1px] border-[rgba(56,56,56)] px-[1.25rem] py-[0.625rem]
+        gap-4
+         ">
           {button.map((btn, index) => {
             return (
               <Button
                 key={index}
                 name={btn}
-                className=""
               />
             );
           })}
