@@ -7,11 +7,13 @@ const Video = ({info}) => {
 
     return (
     <div className="">
+    <div className="relative  sm:h-36 w-full">
     <img
-    src={thumbnails.default.url}
+    src={thumbnails.high.url}
     alt=""
-    className="w-[80%] object-fill"
+    className="relative h-full w-full object-cover"
   />
+  </div>
   <div className="mt-2">
     <h3 className=" font-bold">{title}</h3>
     <p className=" ">{channelTitle}</p>

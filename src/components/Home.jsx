@@ -10,7 +10,8 @@ import useOnline from "../utilis/useOnline"
 const Home = () => {
     const button = [
         "All","Gaming","Music","Sports","Movies","Software","Cyber",
-        "All","Gaming","Music","Sports","Movies",
+        "CSS","Android","ReactJS","ReactNative","AI","Git","Flutter",
+        "Tailwind","UI","Website","Jetpack","Programs","SQL","Tech"
     ]
 
   
@@ -27,6 +28,8 @@ const Home = () => {
       dispatch(addVideo(json.items))
       
     };
+
+    console.log(videoData)
     
 
     useEffect(() => {
@@ -42,10 +45,9 @@ const Home = () => {
    
     return  (
         <div className="mt-6">
-        <div className="top-[3.5rem] z-20 flex items-center flex-1 overflow-x-hidden overflow-y-hidden overflow-scroll
+        <div className="top-[3.5rem] z-20 flex items-center flex-1 overflow-x-hidden 
         border-t-[1px] border-b-[1px] border-[rgba(56,56,56)] px-[1.25rem] py-[0.625rem]
-        gap-4
-         ">
+        gap-4">
           {button.map((btn, index) => {
             return (
               <Button
@@ -55,7 +57,7 @@ const Home = () => {
             );
           })}
         </div>
-      <div className="flex flex-wrap mt-4 space-y-4">
+      <div className="mt-[1rem] gap-y-5 gap-x-[5rem] grid h-[100%] grid-cols-1 p-[0.5rem] md:grid-cols-2 md:gap-x-[5rem] md:gap-y-5  md:mt-[3rem] md:p-[1rem] lg:grid-cols-3 lg:mt-[1rem] lg:gap-y-5 lg:gap-x-[rem]">
       {videoData?.map((video, index) => (
       <Link key={index} to={'/watch?v=' + video.id}><div key={index} className=" w-[400px]">
              <Video info={video} />
