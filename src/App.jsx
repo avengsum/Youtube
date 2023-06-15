@@ -8,6 +8,7 @@ import Home from "./components/Home"
 import { Outlet } from "react-router-dom"
 import { RouterProvider } from "react-router-dom"
 import VideoPage from "./components/VideoPage"
+import AddVideo from "./components/AddVideo"
 
 const appRouter = createBrowserRouter([
   { path:'/',
@@ -31,7 +32,8 @@ function App() {
   return (
     <Provider store={store}>
     <>
-    <Nav />
+    {<Nav />}
+    {/*<AddVideo / */}
     
     <RouterProvider router={appRouter} />
   
