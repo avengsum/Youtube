@@ -32,10 +32,10 @@ function App() {
   return (
     <Provider store={store}>
     <>
-    {<Nav />}
-    {/*<AddVideo / */}
+    {/*<Nav /> */}
+    <AddVideo />
     
-    <RouterProvider router={appRouter} />
+    {/*<RouterProvider router={appRouter} />*/}
   
 
     </>
