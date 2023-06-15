@@ -1,21 +1,27 @@
-import { useFormik} from "formik"
+import { Field, useFormik} from "formik"
+import { useSelector } from "react-redux"
 import * as Yup from 'yup'
 
 const AddVideo = () => {
 
+    const selector = useSelector((state) => state.add.video)
+
     const formik = useFormik({
         initialValues:{
-          tittle:'',
+          title:'',
           description: '',
-        },
+          visibility:"",
+          file:''     },
         validationSchema:Yup.object({
-            tittle:Yup.string().required('Required'),
+            title:Yup.string().required('Required'),
             description:Yup.string().required('Required'),
         }),
         onSubmit:values => {
             JSON.stringify(values,null,2)
         }
     })
+
+    console.log(formik.values)
 
     return(
         <div>
@@ -37,14 +43,25 @@ const AddVideo = () => {
             </div>
             <form onSubmit={formik.handleSubmit}>
                 <label>Title</label>
-                <input id="title" name="title" type="text" />
+                <input id="title"
+                onChange={formik.handleChange}
+                 name="title" type="text" />
                 <label>Description</label>
-                <input type="text" />
+                <input type="text"
+                id="description"
+                name="description"
+                onChange={formik.handleChange}
+                 />
                 <h1>Visibility</h1>
-                <input type="radio" id="private" name="visibility" value="Private" />
-                <label htmlFor="private">Private</label>
-                <input type="radio" name="visibility" id="public" value="Public" />
-                <label htmlFor="public">Public</label>
+               <label htmlFor="private">
+               <input checked={formik.values.visibility === 'Private'} onChange={formik.handleChange} type="radio" name="visibility" value="Private" />
+                Private
+               </label>
+                <label htmlFor="public">
+                <input checked={formik.values.visibility === 'Public'} onChange={formik.handleChange} type="radio" name="visibility"  value="Public" />
+                    Public
+                </label>
+                
                 <button type="submit">Submit</button>
             </form>
         </div>

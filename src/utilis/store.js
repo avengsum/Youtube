@@ -3,13 +3,15 @@ import appSlice from "./appSlice";
 import searchSlice from "./searchSlice";
 import chatSlice from "./chatSlice";
 import videoSlice from "./videoSlice";
+import addVideo from "./addVideoSlice";
 
 const store = configureStore({
     reducer:{
         app: appSlice,
         search: searchSlice,
         chat:chatSlice,
-        video:videoSlice
+        video:videoSlice,
+        add:addVideo
     }
 })
 
