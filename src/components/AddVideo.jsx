@@ -2,34 +2,51 @@ import { Field, useFormik} from "formik"
 import { useDispatch, useSelector } from "react-redux"
 import * as Yup from 'yup'
 import { add } from "../utilis/addVideoSlice"
+import { useState } from "react"
 
 const AddVideo = () => {
 
     const selector = useSelector((state) => state.add.video)
     const dispatch = useDispatch()
+    const validThumbnail = ['image/jpg','image/jpeg','image/png']
+    const validVideo = ['video/x-matroska','video/mp4']
+   
 
     const formik = useFormik({
         initialValues:{
           title:'',
           description: '',
           visibility:"",
-          file:''     },
+          thumbnail:'',
+          video:''
+             },
         validationSchema:Yup.object({
             title:Yup.string().required('Required'),
             description:Yup.string().required('Required'),
+            thumbnail:Yup.mixed().required("Required")
+            .test('FILE_FORMAT' , "Uploaded file has unsuported format", 
+            (value) => !value ||(value && validThumbnail.includes(value.type))
+            ),
+            video:Yup.mixed().required('Required')
+            .test('FILE_FORMAT' , "Uploaded file has unsuported format" ,
+            (value) => !value ||(value && validVideo.includes(value.type))
+            )
+
+
         }),
         onSubmit:values => {
+            if(formik.errors){
+                return
+            }
             JSON.stringify(values,null,2)
             dispatch(add(values))
         }
     })
     console.log(selector)
 
-    console.log(formik.values)
-
     return(
-        <div className="flex items-center h-screen w-full bg-teal-400">
-        <div className="w-full bg-white rounded shadow-lg m-4 p-8 md:max-w-sm md:mx-auto ">
+        <div className="flex items-center h-screen w-screen  bg-teal-400">
+        <div className="w-full bg-white rounded shadow-lg m-4 pr-6 p-8   md:max-w-sm md:mx-auto ">
         <div>
                 <p className="font-semibold text-center text-4xl">Add Video</p>
             </div>
@@ -45,6 +62,7 @@ const AddVideo = () => {
                  id="title"
                 onChange={formik.handleChange}
                  name="title" type="text" />
+                 { formik.errors.title && <div className="text-red-500">{formik.errors.title}</div>}
             </div>
             <div className="flex flex-col mb-4" >
             <label
@@ -55,7 +73,34 @@ const AddVideo = () => {
                 name="description"
                 onChange={formik.handleChange}
                  /> 
+                { formik.errors.description && <div className="text-red-500">{formik.errors.description}</div>}
             </div>
+            <div className="flex flex-col mb-4">
+                <label className="uppercase mb-2 font-bold text-lg">Thumbnail</label>
+                <input
+                className="border-2 py-2 px-3 "
+                 type="file"
+                 name="thumbnail"
+                 onChange={(event) => {
+                    formik.setFieldValue('thumbnail',event.currentTarget.files[0])
+                 }}
+                 
+                />
+                { formik.errors.thumbnail && <div className="text-red-500">{formik.errors.thumbnail}</div>}
+            </div>
+            <div className="flex flex-col mb-4">
+                <label className="uppercase mb-2 font-bold text-lg">Video</label>
+                <input 
+                className="border-2 py-2 px-3"
+                type="file" 
+                name="video"
+                onChange={(event) => {
+                    formik.setFieldValue('video',event.currentTarget.files[0])
+                }}
+                />
+                { formik.errors.video && <div className="text-red-500">{formik.errors.video}</div>}
+            </div>
+
             <div className="flex flex-col mb-4">
             <h1 className="mb-2 uppercase font-bold text-lg">Visibility</h1>
                <label htmlFor="private">
