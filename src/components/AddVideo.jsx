@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux"
 import * as Yup from 'yup'
 import { add } from "../utilis/addVideoSlice"
 import { useState } from "react"
-import {database} from "../firebase/firebase"
-import { json } from "react-router-dom"
+import {database, storage} from "../firebase/firebase"
+import { collection, doc , setDoc } from "firebase/firestore"
+import { uploadBytes } from "firebase/storage"
 
 const AddVideo = () => {
 
@@ -37,16 +38,48 @@ const AddVideo = () => {
 
 
         }),
-        onSubmit: values => {
+        onSubmit: async (values) => {
             //if (formik.errors) {
            //   return;
            // }
            JSON.stringify(values,null,2)
 
+           try {
+            let thumbnailURL = '';
+            let videoURL = '';
+            if(values.thumbnail){
+                const thumbnailRef = ref(storage,'thumbnails/'+values.thumbnail)
+                await uploadBytes(thumbnailRef,values.thumbnail);
+                console.log('Thumbnail uploaded successfully')
+                thumbnailURL = await thumbnailRef.getDownloadURL();
+            }
+            
+            if(values.video){
+                const videoRef = ref(storage ,'videos/'+values.video)
+                await uploadBytes(videoRef,values.video)
+                console.log('Video uploaded successfully')
+                videoURL = await videoRef.getDownloadURL()
+            }
+
+
+            const collectionRef = collection(database,'video-data')
+            const newDocRef = doc(collectionRef)
+            await setDoc(newDocRef,{
+                title:values.title,
+                description:values.description,
+                visibility:values.visibility,
+                //thumbnail:values.thumbnail,
+                //video:values.video
+               })
+               console.log('Upload successful! Document ID:', newDocRef.id);
+           } catch (error) {
+            console.log('Error uploading to Firebase:', error);
+           }
+
           }
           
     })
-    console.log(formik.values)
+    console.log(formik.values.video)
 
     return(
         <div className="flex items-center h-screen w-screen  bg-teal-400">
