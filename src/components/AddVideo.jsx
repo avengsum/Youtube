@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux"
 import * as Yup from 'yup'
 import { add } from "../utilis/addVideoSlice"
 import { useState } from "react"
+import {database} from "../firebase/firebase"
+import { json } from "react-router-dom"
 
 const AddVideo = () => {
 
@@ -10,6 +12,7 @@ const AddVideo = () => {
     const dispatch = useDispatch()
     const validThumbnail = ['image/jpg','image/jpeg','image/png']
     const validVideo = ['video/x-matroska','video/mp4']
+    const [videoValue , setVideoValue] = useState()
    
 
     const formik = useFormik({
@@ -34,15 +37,16 @@ const AddVideo = () => {
 
 
         }),
-        onSubmit:values => {
-            if(formik.errors){
-                return
-            }
-            JSON.stringify(values,null,2)
-            dispatch(add(values))
-        }
+        onSubmit: values => {
+            //if (formik.errors) {
+           //   return;
+           // }
+           JSON.stringify(values,null,2)
+
+          }
+          
     })
-    console.log(selector)
+    console.log(formik.values)
 
     return(
         <div className="flex items-center h-screen w-screen  bg-teal-400">
