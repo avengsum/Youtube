@@ -13,16 +13,22 @@ const MyVideo = () => {
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                <div>
+            <tr className='border-b flex justify-between'>
+                <td className='px-6 py-4 w-7/12 text-sm font-medium text-gray-900'>
                 <img src={im} alt=""
                 className='w-48 lg:w-96 md:w-96 xl:w-96'
                  />
-                </div>
+
                 </td>
                 <td className='px-6 py-4 w-5/12 text-sm font-medium text-gray-900 relative'>
-
+                    <h1 className='text-black text-lg font-bold mb-4'>vuugggugug</h1>
+                    <div className='w-full'>
+                    <button
+                    className='text-white absolute bottom-4 right-4 text-xs bg-red-600 hover:bg-red-700
+                     font-bold py-1 px-1 float-right rounded cursor-pointer' 
+                    >Delete</button>
+                    </div>
+                    
                 </td>
             </tr>
             
