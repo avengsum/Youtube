@@ -5,7 +5,7 @@ import { add } from "../utilis/addVideoSlice"
 import { useState } from "react"
 import {database, storage} from "../firebase/firebase"
 import { collection, doc , setDoc } from "firebase/firestore"
-import { uploadBytes } from "firebase/storage"
+import { uploadBytes , ref , getDownloadURL } from "firebase/storage"
 
 const AddVideo = () => {
 
@@ -51,14 +51,14 @@ const AddVideo = () => {
                 const thumbnailRef = ref(storage,'thumbnails/'+values.thumbnail)
                 await uploadBytes(thumbnailRef,values.thumbnail);
                 console.log('Thumbnail uploaded successfully')
-                thumbnailURL = await thumbnailRef.getDownloadURL();
+                thumbnailURL = await getDownloadURL(thumbnailRef);
             }
             
             if(values.video){
                 const videoRef = ref(storage ,'videos/'+values.video)
                 await uploadBytes(videoRef,values.video)
                 console.log('Video uploaded successfully')
-                videoURL = await videoRef.getDownloadURL()
+                videoURL = await getDownloadURL(videoRef)
             }
 
 
@@ -68,8 +68,8 @@ const AddVideo = () => {
                 title:values.title,
                 description:values.description,
                 visibility:values.visibility,
-                //thumbnail:values.thumbnail,
-                //video:values.video
+                thumbnail:thumbnailURL,
+                video:videoURL
                })
                console.log('Upload successful! Document ID:', newDocRef.id);
            } catch (error) {
