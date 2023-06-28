@@ -34,7 +34,7 @@ function App() {
     <Provider store={store}>
     <>
     {/*<Nav /> */}
-    <MyVideo />
+    <AddVideo />
     
     {/*<RouterProvider router={appRouter} />*/}
   

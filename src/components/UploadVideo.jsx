@@ -1,7 +1,7 @@
 import ReactPlayer from 'react-player'
 import { useState ,useEffect } from 'react'
 import { database } from '../firebase/firebase'
-import { collection, deleteField, getDocs, updateDoc ,doc, deleteDoc } from 'firebase/firestore'
+import { collection, getDocs ,doc, deleteDoc } from 'firebase/firestore'
 
 
 const UploadVideo = () => {
