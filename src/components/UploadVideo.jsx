@@ -2,6 +2,7 @@ import ReactPlayer from 'react-player'
 import { useState ,useEffect } from 'react'
 import { database } from '../firebase/firebase'
 import { collection, getDocs ,doc, deleteDoc } from 'firebase/firestore'
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 
 const UploadVideo = () => {
@@ -53,14 +54,16 @@ const UploadVideo = () => {
                 <td className='px-6 py-4 w-7/12 text-sm font-medium
                 
                 text-gray-900'>
-                <div className="sm:w-36 md:w-56 lg:w-80 xl:w-80">
+                <div className="sm:w-36 md:w-56 lg:w-80 xl:w-80 relative flex justify-center items-center'">
                 <ReactPlayer
+                className="relative"
                 playing={false}
                 url={x.data.video}
                 width='100%'
                 height='100%'
 
                 />
+                <PlayArrowIcon  className='absolute mt-[25%] w-10' />
                 </div>
                 
 
