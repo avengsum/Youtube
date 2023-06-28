@@ -10,6 +10,7 @@ import { RouterProvider } from "react-router-dom"
 import VideoPage from "./components/VideoPage"
 import AddVideo from "./components/AddVideo"
 import MyVideo from "./components/MyVideo"
+import UploadVideo from "./components/UploadVideo"
 
 const appRouter = createBrowserRouter([
   { path:'/',
@@ -34,7 +35,7 @@ function App() {
     <Provider store={store}>
     <>
     {/*<Nav /> */}
-    <AddVideo />
+    <MyVideo/>
     
     {/*<RouterProvider router={appRouter} />*/}
   

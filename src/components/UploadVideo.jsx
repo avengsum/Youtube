@@ -7,6 +7,7 @@ import { collection, getDocs ,doc, deleteDoc } from 'firebase/firestore'
 const UploadVideo = () => {
 
     const [uploadData,setUploadData] = useState([])
+    const [del,setDel] = useState(false)
 
     const getAllData = async () => {
         const querySnapshot = await getDocs(collection(database, 'video-data'));
@@ -33,6 +34,7 @@ const UploadVideo = () => {
         .then(() => {
           console.log("Document deleted")
         })
+        setDel((x) => !x)
         .catch(err => {
           console.log(err)
         })
@@ -40,20 +42,27 @@ const UploadVideo = () => {
 
       useEffect(() => {
         getAllData();
-      },[])
+      },[del])
 
       console.log(uploadData)
 
     return(
         <tbody>
-        {uploadData?.data?.length > 0 ? (uploadData.map((x) => (
+        {(uploadData.map((x) => (
         <tr key={x.id} className='border-b flex justify-between'>
-                <td className='px-6 py-4 w-7/12 text-sm font-medium text-gray-900'>
+                <td className='px-6 py-4 w-7/12 text-sm font-medium
+                
+                text-gray-900'>
+                <div className="sm:w-36 md:w-56 lg:w-80 xl:w-80">
                 <ReactPlayer
                 playing={false}
                 url={x.data.video}
-                
+                width='100%'
+                height='100%'
+
                 />
+                </div>
+                
 
                 </td>
                 <td className='px-6 py-4 w-5/12 text-sm font-medium text-gray-900 relative'>
@@ -67,7 +76,7 @@ const UploadVideo = () => {
                     </div>    
                 </td>
                 </tr>
-            ))) :(<h1>ise bar bhai</h1>)}
+            )))}
            
            </tbody>
     )
