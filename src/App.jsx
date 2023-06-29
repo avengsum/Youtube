@@ -42,10 +42,9 @@ function App() {
   return (
     <Provider store={store}>
     <>
-    {/*<Nav /> */}
-    <MyVideo />
+    <Nav />
     
-    {/*<RouterProvider router={appRouter} />*/}
+    <RouterProvider router={appRouter} />
   
 
     </>
