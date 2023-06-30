@@ -32,6 +32,9 @@ const appRouter = createBrowserRouter([
   {
     path:'/myVideo',
     element:<MyVideo />
+  },{
+    path:'/search',
+    element:<SearchVideoPage />
   },
 
 ]
@@ -44,10 +47,9 @@ function App() {
   return (
     <Provider store={store}>
     <>
-    {/*<Nav />
+    <Nav />
     
-  <RouterProvider router={appRouter} />*/}
-  <SearchVideoPage />
+  <RouterProvider router={appRouter} />
   
 
     </>
