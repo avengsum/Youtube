@@ -17,7 +17,7 @@ const SearchVideoPage = () => {
 
     
     return(
-        <div className="">
+        <div className="sm:ml-10">
             {result?.map((x) => (
                 <SearchVideo url={x?.snippet?.thumbnails?.high?.url}
                 title={x?.snippet?.title}
