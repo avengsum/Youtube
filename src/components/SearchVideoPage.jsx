@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import SearchVideo from "./SearchVideo";
+import { Link } from "react-router-dom";
 
 const SearchVideoPage = () => {
     const [result , setResult] = useState();
@@ -11,6 +12,7 @@ const SearchVideoPage = () => {
         setResult(json.items)
     }
 
+
     useEffect(() => {
         getResult()
     },[])
@@ -19,11 +21,13 @@ const SearchVideoPage = () => {
     return(
         <div className="sm:ml-10">
             {result?.map((x) => (
+                <Link to={'/watch?v=' + x.id.videoId}>
                 <SearchVideo url={x?.snippet?.thumbnails?.high?.url}
                 title={x?.snippet?.title}
                 cTitle ={x?.snippet?.channelTitle}
                 desc= {x?.snippet?.description}
                  />
+                </Link>
             ))}
         </div>
     )

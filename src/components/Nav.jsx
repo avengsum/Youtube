@@ -83,7 +83,7 @@ const Nav = () => {
                <ul className="text-lg space-y-2 space-x-2 🔍" >
                 {suggestion.map((s,index) => {
                   return (
-                     <a href="/search" key={index} >🔍 {s} </a>
+                    <Link to='/search'><li key={index} >🔍 {s} </li></Link>
                   )
                 })}
                
