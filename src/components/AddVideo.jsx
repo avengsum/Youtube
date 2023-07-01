@@ -2,7 +2,7 @@ import { Field, useFormik} from "formik"
 import { useDispatch, useSelector } from "react-redux"
 import * as Yup from 'yup'
 import { add } from "../utilis/addVideoSlice"
-import { useState } from "react"
+import { useState ,useRef } from "react"
 import {database, storage} from "../firebase/firebase"
 import { collection, doc , setDoc } from "firebase/firestore"
 import { uploadBytes , ref , getDownloadURL } from "firebase/storage"
@@ -14,6 +14,10 @@ const AddVideo = () => {
     const validThumbnail = ['image/jpg','image/jpeg','image/png']
     const validVideo = ['video/x-matroska','video/mp4']
     const [videoValue , setVideoValue] = useState()
+    const [disable , setDisable] = useState(false)
+
+    const thumbnailInputRef = useRef(null);
+    const videoInputRef = useRef(null); 
    
 
     const formik = useFormik({
@@ -38,11 +42,12 @@ const AddVideo = () => {
 
 
         }),
-        onSubmit: async (values) => {
+        onSubmit: async (values , {resetForm}) => {
             //if (formik.errors) {
            //   return;
            // }
            JSON.stringify(values,null,2)
+           setDisable(true)
 
            try {
             let thumbnailURL = '';
@@ -50,14 +55,14 @@ const AddVideo = () => {
             if(values.thumbnail){
                 const thumbnailRef = ref(storage,'thumbnails/'+values.thumbnail)
                 await uploadBytes(thumbnailRef,values.thumbnail);
-                console.log('Thumbnail uploaded successfully')
+                alert('Thumbnail uploaded successfully')
                 thumbnailURL = await getDownloadURL(thumbnailRef);
             }
             
             if(values.video){
                 const videoRef = ref(storage ,'videos/'+values.video)
                 await uploadBytes(videoRef,values.video)
-                console.log('Video uploaded successfully')
+                alert('Video uploaded successfully')
                 videoURL = await getDownloadURL(videoRef)
             }
 
@@ -72,11 +77,17 @@ const AddVideo = () => {
                 video:videoURL
                })
                console.log('Upload successful! Document ID:', newDocRef.id);
+               resetForm({});
+               thumbnailInputRef.current.value = null;
+               videoInputRef.current.value = null;
+
+               
            } catch (error) {
             console.log('Error uploading to Firebase:', error);
            }
-
+           setDisable(false)
           }
+          
           
     })
     console.log(formik.values.video)
@@ -97,6 +108,7 @@ const AddVideo = () => {
                 <input
                 className="border-2 py-2 px-3 text-gray-700"
                  id="title"
+                 value={formik.values.title}
                 onChange={formik.handleChange}
                  name="title" type="text" />
                  { formik.errors.title && <div className="text-red-500">{formik.errors.title}</div>}
@@ -108,6 +120,7 @@ const AddVideo = () => {
                 <input className=" border-2 py-2 px-3 text-gray-700" type="text"
                 id="description"
                 name="description"
+                value={formik.values.description}
                 onChange={formik.handleChange}
                  /> 
                 { formik.errors.description && <div className="text-red-500">{formik.errors.description}</div>}
@@ -118,6 +131,7 @@ const AddVideo = () => {
                 className="border-2 py-2 px-3 "
                  type="file"
                  name="thumbnail"
+                 ref={thumbnailInputRef}
                  onChange={(event) => {
                     formik.setFieldValue('thumbnail',event.currentTarget.files[0])
                  }}
@@ -130,6 +144,7 @@ const AddVideo = () => {
                 <input 
                 className="border-2 py-2 px-3"
                 type="file" 
+                ref={videoInputRef}
                 name="video"
                 onChange={(event) => {
                     formik.setFieldValue('video',event.currentTarget.files[0])
@@ -153,6 +168,7 @@ const AddVideo = () => {
 
                 
                 <button
+                disabled={disable}
                 className="block  bg-red-600 hover:bg-red-800 text-white uppercase text-lg mx-auto p-4 rounded"
                  type="submit">Submit</button>
             </form>

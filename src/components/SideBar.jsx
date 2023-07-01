@@ -1,3 +1,4 @@
+import { Button } from "@mui/material"
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 const SideBar = () => {
@@ -36,7 +37,13 @@ const SideBar = () => {
 
               <div class="flex items-center space-x-5 hover:bg-sideBarHoverBg px-7 py-2.5 cursor-pointer">
                 
-                  <h2 class="text-sm text-gray-600">Your videos</h2>
+                  <button class="text-sm text-gray-600">
+                <Link to={'/myVideo'}>Your videos <span className="font-bold">(Working)</span></Link> </button>
+              </div>
+              <div class="flex items-center space-x-5 hover:bg-sideBarHoverBg px-7 py-2.5 cursor-pointer">
+                
+                  <button class="text-sm text-gray-600">
+                <Link to={'/addVideo'}>Upload Video <span className="font-bold">(Working)</span></Link> </button>
               </div>
 
               <div class="flex items-center space-x-5 hover:bg-sideBarHoverBg px-7 py-2.5 cursor-pointer">
@@ -55,7 +62,7 @@ const SideBar = () => {
 
               <div class="flex items-center space-x-5 hover:bg-sideBarHoverBg px-7 py-2.5 cursor-pointer">
 
-                  <h2 class="text-sm text-gray-600">YouTube Premium</h2>
+                 <Link to={'/search'}><h2 class="text-sm text-gray-600">YouTube Premium</h2></Link> 
               </div>
 
               <div class="flex items-center space-x-5 hover:bg-sideBarHoverBg px-7 py-2.5 cursor-pointer">
