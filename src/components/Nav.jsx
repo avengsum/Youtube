@@ -79,16 +79,16 @@ const Nav = () => {
                 <span className="sr-only">Search</span>
            </button>
             </div>
-            {toggleSearch && <div className="bg-white w-96 top-14 fixed left-[24rem] rounded-md">
-               <ul className="text-lg space-y-2 space-x-2 🔍" >
+            {toggleSearch && <div className="bg-white z-10 w-96 top-14 fixed left-[24rem] rounded-md">
+               <button className="text-lg space-y-2 space-x-2 🔍" >
                 {suggestion.map((s,index) => {
                   return (
-                  <li key={index} > {s} </li>
+                  <Link to='/watch' onClick={() => setSearch({s})}  key={index} > 🔍 {s} </Link>
                   )
                 })}
                
                 
-               </ul>
+               </button>
             </div>}
 
           

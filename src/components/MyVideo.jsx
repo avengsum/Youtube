@@ -10,7 +10,7 @@ const MyVideo = () => {
                 <th className='text-md font-medium px-6 py-4 text-left'>Option</th>
             </tr>
         </thead>
-            <UploadVideo />
+        <UploadVideo />
 
     </table>
     </div>
