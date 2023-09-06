@@ -12,6 +12,7 @@ const VideoPage = () => {
     const [comment,setComment] = useState([])
     const [local,setLocal] = useState([]);
         const topRef = useRef(null);
+        console.log(search)
       
         const handleLinkClick = (e) => {
             e.preventDefault();
@@ -60,7 +61,7 @@ const VideoPage = () => {
                 
             </div>
             <div className="w-[20%] mt-4">
-                {local.map((video, index) => (
+                {local?.map((video, index) => (
               <Link key={index} to={'/watch?v=' + video.id}> <div key={index} className="mb-8" >
                 <Video info={video} />
                  </div> </Link> ))}

@@ -25,6 +25,10 @@ function App() {
       <Routes>
         <Route element={<Body />} >
         <Route path='/' element={<Home />} />
+        <Route path='/watch' element={<VideoPage />} />
+        <Route path='/addVideo' element={<AddVideo />} />
+        <Route path='/myVideo' element={<MyVideo />} />
+        <Route path='/search'  element={<SearchVideoPage />} />
         </Route>
         
       </Routes>
