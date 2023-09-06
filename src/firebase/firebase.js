@@ -3,7 +3,7 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBEqJc5Yrzl8b_bRNYuLYFx1rWScVCQeUo",
+  apiKey: import.meta.env.VITE_FIRE,
   authDomain: "clone-ac804.firebaseapp.com",
   projectId: "clone-ac804",
   storageBucket: "clone-ac804.appspot.com",
