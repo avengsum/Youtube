@@ -46,6 +46,7 @@ const Nav = () => {
         dispatch(toogle())
     }
 
+
     return (
         <div className="flex flex-wrap items-start justify-between pt-2">
   <div className="flex items-start space-x-6">
@@ -71,7 +72,7 @@ const Nav = () => {
                 placeholder="Search"
                 value={search}
                 onFocus={() => setToggleSearch(true)}
-                onBlur={() => setToggleSearch(false)}
+               
                 onChange={(e) => setSearch(e.target.value) }
               />
               <button type="submit" class="p-2.5 ml-2 text-sm font-medium text-white bg-red-600 rounded-lg borde hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -79,16 +80,26 @@ const Nav = () => {
                 <span className="sr-only">Search</span>
            </button>
             </div>
-            {toggleSearch && <div className="bg-white w-96 top-14 fixed left-[24rem] rounded-md">
-               <ul className="text-lg space-y-2 space-x-2 🔍" >
-                {suggestion.map((s,index) => {
-                  return (
-                    <Link to='/search'><li key={index} >🔍 {s} </li></Link>
-                  )
-                })}
+            {toggleSearch && <div
+             onMouseLeave={() => setToggleSearch(false)}
+            className="bg-white z-10 flex-col w-96 top-14 fixed left-[24rem] rounded-md">
                
-                
-               </ul>
+                {suggestion.map((s) => {
+                  return (
+                 
+                  <button onClick={() =>{
+                    setSearch(s)
+                    setToggleSearch(false)
+                  }} className="text-lg flex space-y-2 space-x-2" >
+                    <Link to={`/search?v=` + s }>
+                    🔍 {s} 
+                    </Link>
+                    </button>
+                  
+                  )
+                  
+                })}
+              
             </div>}
 
           

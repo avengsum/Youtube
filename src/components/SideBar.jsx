@@ -11,7 +11,7 @@ const SideBar = () => {
           <div class="flex flex-col w-full mb-2">
               <div class="flex items-center space-x-5 bg-sideBarHoverBg px-7 py-2.5 cursor-pointer">
 
-                  <h2 class="text-sm font-semibold text-gray-600">Home</h2>
+                  <Link to='/'> <h2 class="text-sm font-semibold text-gray-600">Home</h2></Link>
               </div>
 
               <div class="flex items-center space-x-5 hover:bg-sideBarHoverBg px-7 py-2.5 cursor-pointer">

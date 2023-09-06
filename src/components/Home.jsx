@@ -27,10 +27,7 @@ const Home = () => {
       setVideoData(json.items)
       dispatch(addVideo(json.items))
       
-    };
-
-    console.log(videoData)
-    
+    };    
 
     useEffect(() => {
       getData();
